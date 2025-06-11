@@ -52,7 +52,7 @@
             padding: 15px 30px;
             font-size: 1.2em;
             color: white;
-            background-color: #3033d7;
+            background-color: #ff69b4;
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -60,7 +60,7 @@
             transition: background-color 0.3s;
         }
         #startButton:hover, #restartButton:hover {
-            background-color: #3033d7;
+            background-color: #ff69b4;
         }
         #winScreen {
             background-color: rgba(255, 255, 255, 0.95);
@@ -70,7 +70,7 @@
         }
         #winScreen h1 {
             font-size: 3em;
-            color: #1e21b9;
+            color: #e11d74;
             margin-bottom: 20px;
         }
 
@@ -109,27 +109,24 @@
             <button id="startButton">开始游戏</button>
         </div>
         <div id="winScreen" style="display: none;">
-            <h1>🎂 陈鑫生日快乐呀 🎉</h1>
+            <h1>🎂 霄霄生日快乐 🎉</h1>
             <p class="win-message-body">
-                纸玫瑰太难携带了，让我写一束吧<br>
-                或许在专业背景的你看来<br>
-                属于超级小儿科的贴脸开大（手动狗头）<br>
-                但确实花了我很多时间和心思<br>
+                毕业了，也第一次这么有空给你打磨生日礼物，真是地狱建筑笑话<br>
+                之前一直害怕毕业，但现在我们一直还有联系真是太好了<br>
+                以后也希望能继续保持联系<br>
+                还有祝你接下来步入工作也一切都顺利，羽毛球越打越好<br>
                 希望这个小小互动能给你带来一丝惊喜和快乐！<br>
-                <br>
-                再次祝你，2025年生日快乐！<br>
-                陈鑫陈鑫，天天开心！
+                再次祝我们最好的霄霄，23岁生日快乐！
             </p>
             <button id="restartButton">再玩一次</button>
         </div>
     </div>
 
     <div id="footerCredit">
-        2025/5/16 @ 林霏开 @ 南京
+        2025/5/16 @ 魏榕 @ 南京
     </div>
 
     <script>
-        console.log("Main script tag started execution."); // 最顶层的日志
         let currentRose = null;
         let particles = [];
         let bgGraphics;
@@ -150,9 +147,9 @@
         ];
 
         const randomPhrases = [
-            "冤种坐车车", "动物园有很多小熊猫哦","长江边的落日很美吧","一起打球吧","逛吃逛吃", "你的手好大啊", "zou ni zou ni",
-            "好贴心哦", "关公巡城 韩信点兵","走我们去看尸体吧", "干点坏事 打点坏球","教练教我打球",
-            "陈鑫陈鑫每天开心", "你怎么什么都会啊","Aiboo的蛋糕卷很好吃", 
+            "是谁杀了我，而我又杀了谁", "你放开我们家风情万种的佟！湘！玉！","葵花点穴手！","排山倒海！","白蘸糖 果扶容 抹笑杯",
+            "有些事不上秤没有四两重","大明朝两京一十三省是在我肩上担着","这样说会不会太伤他了","朕的钱！","苦一苦百姓，骂名我来担",
+            "欧拉欧拉欧拉！","真是HIGH到不行啊！","Wryyyyyy!",
             "身体健康","工作顺利","步步高升"
         ];
         let activePhrases = [];
@@ -172,7 +169,6 @@
         let gameUiContainer;
 
         function setup() {
-            console.log("setup() function STARTED.");
             createCanvas(windowWidth, windowHeight); // 画布全屏
 
             colorMode(HSB, 360, 100, 100, 100);
@@ -201,7 +197,6 @@
             
             textFont('Arial'); // 设置一个默认字体，FloatingPhrase中会用到
             updateUI();
-            console.log("setup() function FINISHED.");
         }
 
         function startGame() {
@@ -261,55 +256,23 @@
                 gameUiContainer.style('pointer-events', 'auto');
             }
         }
+
         function drawMonetBackground(pg) {
-            console.log("drawMonetBackground() STARTED.");
-
             pg.noStroke();
-
-            // 1. 线性渐变背景 (修改为浅蓝色调)
-            let bgGradient = pg.drawingContext.createLinearGradient(0, 0, pg.width, pg.height);
-            bgGradient.addColorStop(0, 'hsla(200, 50%, 96%, 1)'); // 非常浅的天蓝色
-            bgGradient.addColorStop(1, 'hsla(220, 55%, 94%, 1)'); // 略深一点的柔和浅蓝
-            pg.drawingContext.fillStyle = bgGradient;
-            pg.rect(0, 0, pg.width, pg.height);
-
-            // 2. 点缀的椭圆笔触 (修改为蓝色系)
-            for (let i = 0; i < 800; i++) { // 笔触数量可以根据效果调整
-                let x = random(pg.width);
-                let y = random(pg.height);
-                let w = random(60, 120);
-                let h = random(30, 60);
-
-                // 色相范围调整为蓝色系
-                let hue = random(190, 230); // 直接在青蓝到浅蓝之间随机
-                let saturation = random(15, 40); // 调整饱和度，让颜色更明显一点但仍柔和
-                let brightness = random(90, 98); // 保持高亮度
-                let alpha = random(6, 18);      // 调整透明度
-
-                pg.fill(hue, saturation, brightness, alpha);
-                pg.ellipse(x, y, w, h);
-            }
-
-            // 3. 中心偏上的光感 (保持白色或微调)
-            let glowGradient = pg.drawingContext.createRadialGradient(
-                pg.width / 2, pg.height * 0.35, 50,  // 光心位置
-                pg.width / 2, pg.height * 0.35, pg.width * 0.7 // 光晕扩散范围
-            );
-            // 保持白色光晕，通常效果好
-            glowGradient.addColorStop(0, 'hsla(0, 0%, 100%, 0.12)');
-            glowGradient.addColorStop(1, 'hsla(0, 0%, 100%, 0)');
-            // 或者带一点蓝色调的光晕核心:
-            // glowGradient.addColorStop(0, 'hsla(210, 30%, 98%, 0.12)');
-            // glowGradient.addColorStop(1, 'hsla(210, 30%, 98%, 0)');
-
-
-            pg.drawingContext.fillStyle = glowGradient;
-            pg.ellipse(pg.width / 2, pg.height * 0.35, pg.width * 1.4, pg.height * 1.2);
-            console.log("drawMonetBackground() FINISHED.");
+            let bgGradient = pg.drawingContext.createLinearGradient(0,0,pg.width,pg.height);
+            bgGradient.addColorStop(0,'hsla(210,40%,98%,1)');bgGradient.addColorStop(1,'hsla(280,40%,95%,1)');
+            pg.drawingContext.fillStyle=bgGradient;pg.rect(0,0,pg.width,pg.height);
+            for(let i=0;i<800;i++){let x=random(pg.width);let y=random(pg.height);let w=random(60,120);let h=random(30,60);
+            let hueRange=random([[190,210],[270,300],[310,330]]);let hue=random(hueRange[0],hueRange[1]);
+            let saturation=random(5,12);let brightness=random(88,96);let alpha=random(4,10);
+            pg.fill(hue,saturation,brightness,alpha);pg.ellipse(x,y,w,h);}
+            let glowGradient=pg.drawingContext.createRadialGradient(pg.width/2,pg.height*0.35,50,pg.width/2,pg.height*0.35,pg.width*0.7);
+            glowGradient.addColorStop(0,'hsla(0,0%,100%,0.12)');glowGradient.addColorStop(1,'hsla(0,0%,100%,0)');
+            pg.drawingContext.fillStyle=glowGradient;pg.ellipse(pg.width/2,pg.height*0.35,pg.width*1.4,pg.height*1.2);
         }
 
+
         function draw() {
-            console.log("draw() function CALLED - frameCount:", frameCount); // 这个会大量输出，但能确认draw是否在跑
             image(bgGraphics, 0, 0);
 
             if (gameState === "playing" && gameBall) {
@@ -418,7 +381,7 @@
                 ellipse(0, 0, this.currentSize, this.currentSize); // 在 (0,0) 绘制，因为已经translate了
 
                 // --- 2. 绘制猫爪图案 (在底球之上) ---
-                let pawHue = 210;       
+                let pawHue = 340;       
                 let pawSaturation = 50; 
                 let pawBrightness = 80;  
                 let pawAlpha = 80;      // 透明度 
@@ -630,7 +593,7 @@
                 this.initialLifespan=this.lifespan;
                 this.currentAlpha=100; // Use 0-100 for HSB alpha
                 this.textSize=random(15,20);
-                this.textColor=color(random(220,240),random(50,75),random(85,100),this.currentAlpha);
+                this.textColor=color(random(330,350),random(50,75),random(85,100),this.currentAlpha);
             }
             update(){
                 this.lifespan--;
